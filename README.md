@@ -4,9 +4,4 @@ applied FOUR edit
 edited by relyT
 Prickly Pear Checking in.
 
-added first commit
-
-second commit
-
-third commit
 
