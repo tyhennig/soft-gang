@@ -1,0 +1,27 @@
+Table inventory_items {
+  id int [pk, increment]
+  name varchar(20)
+  category varchar(10)
+  attributeID int [ref: < inventory_attributes.attributeID]
+  description varchar(40)
+  active bit
+  imageID int
+  
+}
+
+Table inventory_attributes {
+  itemID int [ref: > inventory_items.id]
+  attributeID int [pk, increment]
+  size varchar(10)
+  color varchar(10)
+  quantity int
+  price decimal(3,2)
+  
+}
+
+Table images {
+  itemID int [ref: > inventory_items.id]
+  imageDescription varchar(20)
+  imageID int [pk] 
+}
+
