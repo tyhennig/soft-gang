@@ -1,3 +1,6 @@
+//To be used at dbdiagram.io for designing database
+
+
 Table inventory_items {
   id int [pk, increment]
   name varchar(20)
