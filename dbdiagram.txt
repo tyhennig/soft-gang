@@ -1,20 +1,18 @@
-//To be used at dbdiagram.io for designing database
-
+//To be used on dbdiagram.io
 
 Table inventory_items {
   id int [pk, increment]
   name varchar(20)
   category varchar(10)
-  attributeID int [ref: < inventory_attributes.attributeID]
   description varchar(40)
   active bit
   imageID int
-  
 }
 
+
 Table inventory_attributes {
-  itemID int [ref: > inventory_items.id]
   attributeID int [pk, increment]
+  itemID int [ref: > inventory_items.id]
   size varchar(10)
   color varchar(10)
   quantity int
@@ -22,9 +20,33 @@ Table inventory_attributes {
   
 }
 
+
 Table images {
   itemID int [ref: > inventory_items.id]
   imageDescription varchar(20)
-  imageID int [pk] 
+  imageID int [pk]
+}
+
+Table purchases {
+  purchaseID int [pk]
+  customerID int [ref: > customers.customerID]
+  price decimal(3,2)
+  
+  
+}
+
+Table purchaseItem {
+  purchaseID int [ref: > purchases.purchaseID]
+  attribID int [ref: > inventory_attributes.attributeID]
+  
+}
+
+Table customers {
+  customerID int
+  first varchar(20)
+  last varchar(20)
+  phone varchar(15)
+  email varchar(30)
+  
 }
 
