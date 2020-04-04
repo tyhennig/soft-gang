@@ -13,10 +13,9 @@ Table inventory_items {
 Table inventory_attributes {
   attributeID int [pk, increment]
   itemID int [ref: > inventory_items.id]
-  size varchar(10)
-  color varchar(10)
+  attribute varchar(10)
   quantity int
-  price decimal(3,2)
+  price decimal(5,2)
   
 }
 
@@ -25,12 +24,13 @@ Table images {
   itemID int [ref: > inventory_items.id]
   imageDescription varchar(20)
   imageID int [pk]
+  file varchar(20)
 }
 
 Table purchases {
-  purchaseID int [pk]
+  purchaseID int [pk, increment]
   customerID int [ref: > customers.customerID]
-  price decimal(3,2)
+  total decimal(5,2)
   
   
 }
@@ -42,11 +42,11 @@ Table purchaseItem {
 }
 
 Table customers {
-  customerID int
+  customerID int [pk, increment]
   first varchar(20)
   last varchar(20)
-  phone varchar(15)
-  email varchar(30)
+  phone varchar(15) unique
+  email varchar(30) unique
   
 }
 
