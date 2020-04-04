@@ -1,0 +1,71 @@
+To set up the local database so you can access this data
+	
+	go to this link: https://go.microsoft.com/fwlink/?linkid=866658
+	
+	this will download sql express which seems a lot easier to set up than MySQL
+	
+	follow the steps and just install the basic thing
+	
+	once you get to the end leave the last window open because it has some info in it.
+	
+	Next download Microsft's server management studio at this link: https://aka.ms/ssmsfullsetup
+	
+	This will allow you to run the SQL files to set up the tables and fill them with data.
+	
+	Once you have downloaded that run it and there should be a connection screen
+	
+	Server type should be Database Engine and server name click the drop down and browse for more
+	
+	There should be one like this NAMEOFPC\SQLEXPRESS
+	
+		Once connected drag InventoryItems.sql file into the window and click the EXECUTE button
+		
+		It should give you a message that tables were created
+		
+		Next do the same thing for the DummyData.sql to fill these tables with some example data I made
+		
+		And thats it @TyDie1212 in discord if you have any troubles.
+		
+		
+		
+Now for understanding how the database is set up:
+	Customers
+		This one is self explanatory
+		
+	inventory_items
+		these are the items themselves
+		ex. grey alumni shirt, blue porky shirt etc
+		does not include size or price
+		has category, description, and whether it is active
+		
+	inventory_attributes
+		this is where the specifics are held
+		size, quantity, price are all here
+		every single unique item will have an attributeID here
+		ex. blue porky small, blue porky, medium, grey alumni small, grey alumni large, ETC...
+		This means shirt1 small and shirt1 medium have the same itemID but different attributeIDs
+		this means when doing things like just showing shirt imaged we don't need to parse through EVERYSINGLE SIZE and item
+		for generic item browsing we could use the inventory_items because a small and medium look the same so we can sort through less objects
+		
+	images
+		this is where the image locations are stored
+		images are not stored in the database because that's a lot of bytes
+		instead we just store the file name of the image and use that to load the image in the Windows app code
+		
+	purchases
+		This is the log of in store purchases 
+		it only contains the purchaseID, customerID, and the total
+	
+	purchaseItem
+		A little more interesting than purchases
+		this table has the purchaseID as a foreign key and attribID as a foreign key
+		basically it connects every purchased item with a purchaseID
+		so if purchase 1 contains 3 items with attributeIDs 4,2 and 3
+		and purchase 2 contains 1 item with attributeID 7 table would look like this:
+			purchaseID	attribID
+			1			4
+			1			2
+			1			3
+			2			7
+			
+			

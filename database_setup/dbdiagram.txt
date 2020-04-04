@@ -1,0 +1,52 @@
+//To be used on dbdiagram.io
+
+Table inventory_items {
+  id int [pk, increment]
+  name varchar(20)
+  category varchar(10)
+  description varchar(40)
+  active bit
+  imageID int
+}
+
+
+Table inventory_attributes {
+  attributeID int [pk, increment]
+  itemID int [ref: > inventory_items.id]
+  attribute varchar(10)
+  quantity int
+  price decimal(5,2)
+  
+}
+
+
+Table images {
+  itemID int [ref: > inventory_items.id]
+  imageDescription varchar(20)
+  imageID int [pk]
+  file varchar(20)
+}
+
+Table purchases {
+  purchaseID int [pk, increment]
+  customerID int [ref: > customers.customerID]
+  total decimal(5,2)
+  
+  
+}
+
+Table purchaseItem {
+  purchaseID int [ref: > purchases.purchaseID]
+  attribID int [ref: > inventory_attributes.attributeID]
+  
+}
+
+Table customers {
+  customerID int [pk, increment]
+  first varchar(20)
+  last varchar(20)
+  phone varchar(15) unique
+  email varchar(30) unique
+  
+}
+
