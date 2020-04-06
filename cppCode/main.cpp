@@ -6,11 +6,15 @@
 #include "include/DBAPI.h"
 #include "src/DBAPI.cpp"
 
+string CONNECT_ST = "Server=(localdb).\\MSSQLLocalDB;Integrated Security=true";
 
 using namespace std;
 int main()
 {
 
-    cout << "Sup Worl" << endl;
-    return 0;
+    while(true)
+    {
+
+        DBAPI db(CONNECT_ST);
+    }
 }

@@ -5,7 +5,8 @@ using namespace std;
 
 DBAPI::DBAPI(string connectionString)
 {
-    setConnectionString(connectionString);
+    m_connectionString = connectionString;
+    //setConnectionString(connectionString);
 }
 
 
