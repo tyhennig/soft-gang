@@ -1,3 +1,26 @@
-//This file will contain all the implementations for the database API methods.
+#include "../include/DBAPI.h"
+#include <iostream>
 
-//Not quite sure yet how this implementation will be done in conjunction with the rest of the cpp files but we will discuss
+using namespace std;
+
+DBAPI::DBAPI(string connectionString)
+{
+    setConnectionString(connectionString);
+}
+
+
+
+void DBAPI::setConnectionString(string connectionString)
+{
+    connectionString = m_connectionString;
+}
+
+void DBAPI::connectDB(string connectionString)
+{
+    
+}
+
+string DBAPI::getConnectionString()
+{
+    return m_connectionString;
+}
