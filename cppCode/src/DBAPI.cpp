@@ -17,10 +17,22 @@ void DBAPI::setConnectionString(string connectionString)
 
 void DBAPI::connectDB(string connectionString)
 {
-    
+
+}
+
+void DBAPI::setupDB()
+{
+
 }
 
 string DBAPI::getConnectionString()
 {
     return m_connectionString;
+}
+
+string DBAPI::getInventory_Items(int id)
+{
+    //query database: SELECT * FROM inventory_items WHERE id = id
+    //take string "id, name, category, description, active, imageID"
+    //parse string later to extract data.
 }

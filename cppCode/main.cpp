@@ -12,6 +12,5 @@ int main()
 {
 
     cout << "Sup Worl" << endl;
-    cout << getActiveItems();
     return 0;
 }
