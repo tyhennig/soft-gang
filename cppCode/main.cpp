@@ -12,9 +12,8 @@ using namespace std;
 int main()
 {
 
-    while(true)
-    {
-
         DBAPI db(CONNECT_ST);
-    }
+        cout << db.getConnectionString() << endl;
+        cout << "done!" << endl;
+    
 }

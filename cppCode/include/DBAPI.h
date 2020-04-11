@@ -1,6 +1,6 @@
 #ifndef DBAPI_H
 #define DBAPI_H
-
+ 
 #include <windows.h>
 #include <sqlext.h>
 #include <sqltypes.h>
@@ -36,7 +36,7 @@ class DBAPI
 
         //getters that return ints
         int getNumActive();
-        int * getActiveIDs();   //returns pointer to array of active IDs
+        int getActiveIDs();   
         int getImageID(int id);
 
 
