@@ -14,6 +14,8 @@ int main()
 
         DBAPI db(CONNECT_ST);
         cout << db.getConnectionString() << endl;
+
+        db.connectDB(CONNECT_ST);
         cout << "done!" << endl;
     
 }

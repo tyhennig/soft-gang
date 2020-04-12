@@ -1,7 +1,7 @@
-#include "ProductManager.h"
+#include "../include/ProductManager.h"
 
 ProductManager::ProductManager()
-: Product(n, num, p, q)
+: Product()
 {
     //ctor
 }

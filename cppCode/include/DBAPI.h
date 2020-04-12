@@ -17,6 +17,12 @@ class DBAPI
         string m_connectionString;
 
     public:
+
+        //Handles and stuff for ODBC API
+        SQLHENV henv1;
+        SQLHDBC hdbc1;
+
+
         //Set up constructor and functions
         DBAPI(string connectionString);
         void setConnectionString(string connectionString);
