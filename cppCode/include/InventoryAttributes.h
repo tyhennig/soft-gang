@@ -16,6 +16,21 @@ class InventoryAttributes
         double price;
 
 
+
+
+        //getters and setters, to be modified.
+        //will pill/push from database and have built in logic
+        int getID();
+        string getAttribute();
+        int getQuantity();
+        double getPrice();
+        void setID(int);
+        void setAttribute(string);
+        void setQuantity(int);
+        void setPrice(double);
+
+
+
     protected:
 
     private:
