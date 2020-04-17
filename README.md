@@ -18,9 +18,6 @@ HOW TO SET UP PROJECT
 
 ##################################
 
-This will vary greatly depending on what compiler/IDE you are using.
-Abraham and Tyler are using Visual Studio so these steps apply to that.
-
 Remember to pull the newest commit from the remote repo
 
 ******SET UP DATABASE*******
@@ -45,5 +42,21 @@ A few more steps to follow though:
 
 ******SET UP ENVIRONMENT*****
 
+This will vary greatly depending on what compiler/IDE you are using.
+Abraham and Tyler are using Visual Studio so the following steps are for that.
+
+1. Right click the project name in the Solution view on the Solution explorer
+2. In the properties window we are going to change a bunch of different directories
+3. In the project there is a references folder, in here is files for Visual Studio 64bit compiler
+	but the files will change depending on what compiler you are using.
+4. Under Include Directories add the location of the Include folder in the project (References\include)
+5. Library Directories add the location of the lib folder
+6. C/C++ tab add include folder to the Additional Include Directories setting
+7. Linker tab -> General, add Additional Library Directories (the lib folder)
+8. Linker -> Input, This one is different, under additonal dependencies you have to give it the sqlapi.lib file (Mine looks like C:\Users\TylerPC\Desktop\Coding\soft-gang\References\x86_64\lib\sqlapi.lib)
+9. Lastly, in the Reference folder of the project there is a sqlapi.dll file, move this to where ever your compiler creates the exe file that is run on your machine
+	in visual studio it is placed in the Debug folder that VS creates.
+	If you can't find where the exe is, just try to run the program and it will say where the exe file is at the top of the console.
+	
 
 	
