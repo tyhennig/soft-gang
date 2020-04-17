@@ -1,8 +1,13 @@
 #ifndef DBAPI_H
 #define DBAPI_H
- 
+
+#include "InventoryItems.h"
+#include "InventoryAttributes.h"
+
+#include <vector>
 #include <iostream>
 #include <SQLAPI.h>
+
 
 using namespace std;
 
@@ -24,30 +29,33 @@ class DBAPI
         void setupDB();
 
 
+        //customer functions
         void createCustomer();
         void deleteCustomer();
         void getCustomers();
 
-        //getters that return strings
+        //inventory item functions
+        vector<InventoryItems> createActiveItems();
 
-        string getName(int id);
-        string getCategory(int id);
-        string getDescription(int id);
+        //getters for inventory items
+
+        string getItemName(int id);
+        string getItemCategory(int id);
+        string getItemDescription(int id);
+
+        int getImageID(int id);
 
         //getters that return BOOLS
         boolean isActive(int id);
 
 
-        //getters that return ints
-        int getActive();
-        int getImageID(int id);
+        //getters that return something
+
+        vector<int> getActiveIds();
 
 
 
-        //We either do all of this stuff ^ and get every single attribute
-        //of every single table or we can do something like this
-
-        string getInventory_Items(int id);
+       
 
 };
 

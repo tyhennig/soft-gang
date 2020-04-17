@@ -16,6 +16,7 @@ string pass;
 boolean run = true;
 int input;
 
+vector<InventoryItems> itemVec;
 
 using namespace std;
 
@@ -33,8 +34,8 @@ int main()
     while (run)
     {
         cout << "1. List Customers" << endl;
-        cout << "2. Create Customer" << endl;
-		cout << "3. Delete Customer" << endl;
+        //cout << "2. Create Customer" << endl;
+		//cout << "3. Delete Customer" << endl;
 		cout << "4. Quit" << endl;
 
 
@@ -42,7 +43,11 @@ int main()
 
         if (input == 1)
         {
-            db.getCustomers();
+           itemVec = db.createActiveItems();
+
+           cout << "The first created item name is: ";
+           cout << itemVec[0].getName() << endl;
+
         }
         else if (input == 2)
         {
@@ -62,9 +67,10 @@ int main()
         }
 
 
+
     }
 
-    
+    /*
 	
 	InventoryItems x("porky shirt", "shirt", "a blue porky shirt", 1);
     InventoryAttributes y(1, "small", 13, 15.00);
@@ -90,4 +96,5 @@ int main()
     c.addToCartBtn();
     Product::clearCart();
     Register::transactionPrompt();
+    */
 }

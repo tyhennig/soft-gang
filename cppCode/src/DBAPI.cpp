@@ -40,25 +40,97 @@ void DBAPI::setupDB()
 
 
 
-string DBAPI::getInventory_Items(int id)
+
+//-----------------------------------------------
+
+//Inventory Item Related Methods
+
+//-----------------------------------------------
+
+vector<InventoryItems> DBAPI::createActiveItems()
 {
-    if(id <= 0)
-    {
-    return "inventory items";
-    } else
-    {
-        return "no item";
-    }
-    
-    //query database: SELECT * FROM inventory_items WHERE id = id
-    //take string "id, name, category, description, active, imageID"
-    //parse string later to extract data.
+	int numItems = 0;
+
+	try
+	{
+		SACommand cmd(
+			&con,
+			"SELECT id, name, category, description, imageID FROM inventory_items WHERE active=1;"
+		);
+
+		cmd.Execute();
+		cout << endl << "Rows Affected: " << cmd.RowsAffected() << endl;
+		vector<InventoryItems> itemsVector;
+
+
+
+		while (cmd.FetchNext())
+		{
+			numItems++;
+			cout << "numItems is: " << numItems << endl;
+			itemsVector.resize(numItems);
+
+
+			string id;
+			string name;
+			string category;
+			string description;
+			string imageID;
+
+			id = (const char*)cmd.Field(1).asString();
+			name = (const char*)cmd.Field(2).asString();
+			category = (const char*)cmd.Field(3).asString();
+			description = (const char*)cmd.Field(4).asString();
+			imageID = (const char*)cmd.Field(5).asString();
+
+			/*cout << id << " " <<
+				name << " " <<
+				category << " " <<
+				description << " " <<
+				imageID << " " << endl;
+				*/
+			itemsVector[numItems-1].setName(name);
+			itemsVector[numItems-1].setName(category);
+			itemsVector[numItems-1].setName(description);
+		}
+
+		return itemsVector;
+
+	}
+	catch (SAException& x)
+	{
+		try
+		{
+			con.Rollback();
+		}
+		catch (SAException&)
+		{
+
+		}
+
+		cout << (const char*)x.ErrText() << endl;
+
+	}
+
 }
 
-string DBAPI::getName(int id)
+
+vector<int> DBAPI::getActiveIds()
+{
+	vector<int> vec;
+	return vec;
+}
+
+string DBAPI::getItemName(int id)
 {
     return "name";
 }
+
+//-----------------------------------------------
+
+//Customer Related Methods:
+
+//-----------------------------------------------
 
 void DBAPI::createCustomer()
 {
@@ -67,14 +139,12 @@ void DBAPI::createCustomer()
 	{
 		SACommand cmd(
 			&con,
-			"INSERT INTO customers (first, last, phone, email) VALUES ('k', 'k', '314', 'k@gmail.com');"
+			" "
 		);
 
 		cmd.Execute();
 
 		cout << endl << "Rows Affected: " << cmd.RowsAffected() << endl;
-
-		
 
 	}
 	catch (SAException& x)
@@ -97,17 +167,17 @@ void DBAPI::createCustomer()
 void DBAPI::deleteCustomer()
 {
 	
+
 	try
 	{
+		SACommand cmd(
+			&con,
+			" "
+		);
 
-        SACommand cmd(
-		&con,
-		"DELETE FROM customers WHERE first='k';"
-	);
+		cmd.Execute();
 
-	cmd.Execute();
-
-	cout << endl << "Rows Affected: " << cmd.RowsAffected() << endl;
+		cout << endl << "Rows Affected: " << cmd.RowsAffected() << endl;
 
 	}
 	catch (SAException& x)
@@ -124,6 +194,7 @@ void DBAPI::deleteCustomer()
 		cout << (const char*)x.ErrText() << endl;
 
 	}
+
 }
 
 void DBAPI::getCustomers()
@@ -133,7 +204,7 @@ void DBAPI::getCustomers()
 
 		SACommand cmd(
 			&con,
-			"SELECT first FROM customers;"
+			"SELECT first, last FROM customers;"
 		);
 
 		cmd.Execute();
@@ -144,7 +215,8 @@ void DBAPI::getCustomers()
 
 			while (cmd.FetchNext())
 			{
-				cout << (const char*)cmd.Field("first").asString() << endl;
+				cout << (const char*)cmd.Field("first").asString() << " " <<
+					(const char*)cmd.Field("last").asString() << endl;
 			}
 
 		}
