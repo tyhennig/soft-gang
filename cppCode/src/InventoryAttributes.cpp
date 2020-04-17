@@ -1,4 +1,4 @@
-#include "InventoryAttributes.h"
+#include "../include/InventoryAttributes.h"
 
 InventoryAttributes::InventoryAttributes()
 {

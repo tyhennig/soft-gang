@@ -1,4 +1,4 @@
-#include "Product.h"
+#include "../include/Product.h"
 
 vector<Product> Product::cart;
 double Product::total = 0.00;

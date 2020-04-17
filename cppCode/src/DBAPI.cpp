@@ -1,44 +1,36 @@
 #include "../include/DBAPI.h"
 #include <iostream>
-#define MYSQLSUCCESS(rc) ((rc == SQL_SUCCESS) || (rc == SQL_SUCCESS_WITH_INFO) )
+
 
 using namespace std;
 
-RETCODE rc;
 
-DBAPI::DBAPI(string connectionString)
+DBAPI::DBAPI(string db_name, string user, string pass)
 {
-    m_connectionString = connectionString;
-
-
+    this->db_name = db_name;
+    this->user = user;
+    this->pass = pass;
 }
 
 
 
-void DBAPI::setConnectionString(string connectionString)
+void DBAPI::connectDB()
 {
-    connectionString = m_connectionString;
-}
+    
 
-void DBAPI::connectDB(string connectionString)
-{
-    SQLAllocEnv(&henv1);
-    SQLAllocConnect(henv1, &hdbc1);
+    
+    try {
 
-    //SQLAllocHandle(SQL_HANDLE_ENV, SQL_NULL_HANDLE, &henv1);
-    //SQLSetEnvAttr(henv1, SQL_ATTR_ODBC_VERSION, (SQLPOINTER)SQL_OV_ODBC3, 0);
-    //SQLAllocHandle(SQL_HANDLE_DBC, henv1, &hdbc1);
-    rc = SQLConnectW(hdbc1, (SQLWCHAR *)"localhost\\SQLEXPRESS", SQL_MAX_DSN_LENGTH, NULL, NULL, NULL, NULL);
-    cout << "started connection..." << endl;
-
-    if (!MYSQLSUCCESS(rc))
-    {
-        SQLFreeConnect(henv1);
-        SQLFreeEnv(henv1);
-        SQLFreeConnect(hdbc1);
-        cout << "connection failed!" << endl;
-
+        con.Connect(db_name.c_str(), user.c_str(), pass.c_str(), SA_SQLServer_Client);
+		cout << "connected!" << endl << endl;
+        
     }
+    catch (SAException& x) {
+        con.Rollback();
+        cout << (const char*)x.ErrText();
+        }
+    
+
 }
 
 void DBAPI::setupDB()
@@ -46,10 +38,7 @@ void DBAPI::setupDB()
 
 }
 
-string DBAPI::getConnectionString()
-{
-    return m_connectionString;
-}
+
 
 string DBAPI::getInventory_Items(int id)
 {
@@ -64,4 +53,117 @@ string DBAPI::getInventory_Items(int id)
     //query database: SELECT * FROM inventory_items WHERE id = id
     //take string "id, name, category, description, active, imageID"
     //parse string later to extract data.
+}
+
+string DBAPI::getName(int id)
+{
+    return "name";
+}
+
+void DBAPI::createCustomer()
+{
+
+	try
+	{
+		SACommand cmd(
+			&con,
+			"INSERT INTO customers (first, last, phone, email) VALUES ('k', 'k', '314', 'k@gmail.com');"
+		);
+
+		cmd.Execute();
+
+		cout << endl << "Rows Affected: " << cmd.RowsAffected() << endl;
+
+		
+
+	}
+	catch (SAException& x)
+	{
+		try
+		{
+			con.Rollback();
+		}
+		catch (SAException&)
+		{
+
+		}
+
+		cout << (const char*)x.ErrText() << endl;
+
+	}
+	
+}
+
+void DBAPI::deleteCustomer()
+{
+	
+	try
+	{
+
+        SACommand cmd(
+		&con,
+		"DELETE FROM customers WHERE first='k';"
+	);
+
+	cmd.Execute();
+
+	cout << endl << "Rows Affected: " << cmd.RowsAffected() << endl;
+
+	}
+	catch (SAException& x)
+	{
+		try
+		{
+			con.Rollback();
+		}
+		catch (SAException&)
+		{
+
+		}
+
+		cout << (const char*)x.ErrText() << endl;
+
+	}
+}
+
+void DBAPI::getCustomers()
+{
+    try
+    {
+
+		SACommand cmd(
+			&con,
+			"SELECT first FROM customers;"
+		);
+
+		cmd.Execute();
+
+
+		if (cmd.isResultSet())
+		{
+
+			while (cmd.FetchNext())
+			{
+				cout << (const char*)cmd.Field("first").asString() << endl;
+			}
+
+		}
+
+    }
+    catch (SAException &x)
+    {
+        try
+        {
+            con.Rollback();
+        }
+        catch (SAException &)
+        {
+
+        }
+
+        cout << (const char*)x.ErrText() << endl;
+
+    }
+	
+
 }

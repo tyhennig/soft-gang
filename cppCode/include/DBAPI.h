@@ -1,12 +1,8 @@
 #ifndef DBAPI_H
 #define DBAPI_H
  
-#include <windows.h>
-#include <sqlext.h>
-#include <sqltypes.h>
-#include <sql.h>
-
 #include <iostream>
+#include <SQLAPI.h>
 
 using namespace std;
 
@@ -14,35 +10,36 @@ class DBAPI
 {
 
     private:
-        string m_connectionString;
+        string db_name;
+        string user;
+        string pass;
+        SAConnection con;
 
     public:
 
-        //Handles and stuff for ODBC API
-        SQLHENV henv1;
-        SQLHDBC hdbc1;
-
-
         //Set up constructor and functions
-        DBAPI(string connectionString);
-        void setConnectionString(string connectionString);
-        void connectDB(string connectionSTring);
+        DBAPI(string db_name, string user, string pass);
+
+        void connectDB();
         void setupDB();
 
+
+        void createCustomer();
+        void deleteCustomer();
+        void getCustomers();
+
         //getters that return strings
-        string getConnectionString();
 
         string getName(int id);
         string getCategory(int id);
         string getDescription(int id);
 
         //getters that return BOOLS
-        boolean getActive(int id);
+        boolean isActive(int id);
 
 
         //getters that return ints
-        int getNumActive();
-        int getActiveIDs();   
+        int getActive();
         int getImageID(int id);
 
 
