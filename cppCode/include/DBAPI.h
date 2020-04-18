@@ -22,40 +22,55 @@ class DBAPI
 
     public:
 
-        //Set up constructor and functions
+        //------------------------------------------------------------
+        //CLASS FUNCTIONS
+        //------------------------------------------------------------
         DBAPI(string db_name, string user, string pass);
-
         void connectDB();
-        void setupDB();
 
 
-        //customer functions
+        //------------------------------------------------------------
+        //CUSTOMER FUNCTIONS
+		//------------------------------------------------------------
         void createCustomer();
         void deleteCustomer();
+        void editCustomer(int id);
+        void editCustomer(string first, string last);
+
         void getCustomers();
 
-        //inventory item functions
-        vector<InventoryItems> createActiveItems();
+		
+        //------------------------------------------------------------
+        //INVENTORY ITEM FUNCTIONS
+		//------------------------------------------------------------
 
-        //getters for inventory items
+        void createItem();
+        void deleteItem();
 
-        string getItemName(int id);
-        string getItemCategory(int id);
-        string getItemDescription(int id);
+        vector<InventoryItems> getActiveItems(); //returns a vector containing all active item objects
+		vector<int> getActiveIds();
 
         int getImageID(int id);
 
-        //getters that return BOOLS
         boolean isActive(int id);
 
+		//------------------------------------------------------------
+		//INVENTORY ATTRIBUTE FUNCTIONS
+		//------------------------------------------------------------
 
-        //getters that return something
+        void createAttribute();
+        void deleteAttribute();
 
-        vector<int> getActiveIds();
+        vector<InventoryAttributes> getAttributes(int id);
 
+        
 
+		//------------------------------------------------------------
+		//PURCHASE FUNCTIONS
+		//------------------------------------------------------------
 
-       
+        void createPurchase();
+        void executePurchase();
 
 };
 

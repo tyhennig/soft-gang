@@ -33,11 +33,6 @@ void DBAPI::connectDB()
 
 }
 
-void DBAPI::setupDB()
-{
-
-}
-
 
 
 
@@ -47,9 +42,10 @@ void DBAPI::setupDB()
 
 //-----------------------------------------------
 
-vector<InventoryItems> DBAPI::createActiveItems()
+vector<InventoryItems> DBAPI::getActiveItems()
 {
 	int numItems = 0;
+		vector<InventoryItems> itemsVector;
 
 	try
 	{
@@ -59,15 +55,13 @@ vector<InventoryItems> DBAPI::createActiveItems()
 		);
 
 		cmd.Execute();
-		cout << endl << "Rows Affected: " << cmd.RowsAffected() << endl;
-		vector<InventoryItems> itemsVector;
+
 
 
 
 		while (cmd.FetchNext())
 		{
 			numItems++;
-			cout << "numItems is: " << numItems << endl;
 			itemsVector.resize(numItems);
 
 
@@ -83,15 +77,10 @@ vector<InventoryItems> DBAPI::createActiveItems()
 			description = (const char*)cmd.Field(4).asString();
 			imageID = (const char*)cmd.Field(5).asString();
 
-			/*cout << id << " " <<
-				name << " " <<
-				category << " " <<
-				description << " " <<
-				imageID << " " << endl;
-				*/
+		
 			itemsVector[numItems-1].setName(name);
-			itemsVector[numItems-1].setName(category);
-			itemsVector[numItems-1].setName(description);
+			itemsVector[numItems-1].setCategory(category);
+			itemsVector[numItems-1].setDescription(description);
 		}
 
 		return itemsVector;
