@@ -1,4 +1,4 @@
-#include "../include/DBAPI.h"
+#include "DBAPI.h"
 #include <iostream>
 
 
@@ -7,29 +7,29 @@ using namespace std;
 
 DBAPI::DBAPI(string db_name, string user, string pass)
 {
-    this->db_name = db_name;
-    this->user = user;
-    this->pass = pass;
+	this->db_name = db_name;
+	this->user = user;
+	this->pass = pass;
 }
 
 
 
 void DBAPI::connectDB()
 {
-    
 
-    
-    try {
 
-        con.Connect(db_name.c_str(), user.c_str(), pass.c_str(), SA_SQLServer_Client);
+
+	try {
+
+		con.Connect(db_name.c_str(), user.c_str(), pass.c_str(), SA_SQLServer_Client);
 		cout << "connected!" << endl << endl;
-        
-    }
-    catch (SAException& x) {
-        con.Rollback();
-        cout << (const char*)x.ErrText();
-        }
-    
+
+	}
+	catch (SAException& x) {
+		con.Rollback();
+		cout << (const char*)x.ErrText();
+	}
+
 
 }
 
@@ -45,7 +45,7 @@ void DBAPI::connectDB()
 vector<InventoryItems> DBAPI::getActiveItems()
 {
 	int numItems = 0;
-		vector<InventoryItems> itemsVector;
+	vector<InventoryItems> itemsVector;
 
 	try
 	{
@@ -55,9 +55,6 @@ vector<InventoryItems> DBAPI::getActiveItems()
 		);
 
 		cmd.Execute();
-
-
-
 
 		while (cmd.FetchNext())
 		{
@@ -77,10 +74,10 @@ vector<InventoryItems> DBAPI::getActiveItems()
 			description = (const char*)cmd.Field(4).asString();
 			imageID = (const char*)cmd.Field(5).asString();
 
-		
-			itemsVector[numItems-1].setName(name);
-			itemsVector[numItems-1].setCategory(category);
-			itemsVector[numItems-1].setDescription(description);
+
+			itemsVector[numItems - 1].setName(name);
+			itemsVector[numItems - 1].setCategory(category);
+			itemsVector[numItems - 1].setDescription(description);
 		}
 
 		return itemsVector;
@@ -110,10 +107,10 @@ vector<int> DBAPI::getActiveIds()
 	return vec;
 }
 
-string DBAPI::getItemName(int id)
+/*string DBAPI::getItemName(int id)
 {
-    return "name";
-}
+	return "name";
+}*/
 
 //-----------------------------------------------
 
@@ -150,12 +147,12 @@ void DBAPI::createCustomer()
 		cout << (const char*)x.ErrText() << endl;
 
 	}
-	
+
 }
 
 void DBAPI::deleteCustomer()
 {
-	
+
 
 	try
 	{
@@ -188,8 +185,8 @@ void DBAPI::deleteCustomer()
 
 void DBAPI::getCustomers()
 {
-    try
-    {
+	try
+	{
 
 		SACommand cmd(
 			&con,
@@ -210,21 +207,79 @@ void DBAPI::getCustomers()
 
 		}
 
-    }
-    catch (SAException &x)
-    {
-        try
-        {
-            con.Rollback();
-        }
-        catch (SAException &)
-        {
+	}
+	catch (SAException& x)
+	{
+		try
+		{
+			con.Rollback();
+		}
+		catch (SAException&)
+		{
 
-        }
+		}
 
-        cout << (const char*)x.ErrText() << endl;
+		cout << (const char*)x.ErrText() << endl;
 
-    }
+	}
+
+
+}
+
+
+vector<InventoryAttributes> DBAPI::getAllDBAtts()
+{
+	int numAttributes = 0;
+	vector<InventoryAttributes> attributesVector;
+
+	try
+	{
+		SACommand cmd(
+				&con,
+				"Select attributeID, itemID, attribute, quantity, price FROM inventory_attributes;"
+		);
+
+		cmd.Execute();
+
+		while (cmd.FetchNext())
+		{
+			numAttributes++;
+			attributesVector.resize(numAttributes);
+
+			int attID;
+			int itemID;
+			string attribute;
+			int quantity;
+			double price;
+
+			attID = (sa_int64_t)cmd.Field(1).asNumeric();
+			itemID = (sa_int64_t)cmd.Field(2).asNumeric();
+			attribute = (const char*)cmd.Field(3).asString();
+			quantity = (sa_int64_t)cmd.Field(4).asNumeric();
+			price = (double)cmd.Field(5).asNumeric();
+
+			//attributesVector[numAttributes - 1].setID(attID);
+			attributesVector[numAttributes - 1].setID(itemID);
+			attributesVector[numAttributes - 1].setAttribute(attribute);
+			attributesVector[numAttributes - 1].setQuantity(quantity);
+			attributesVector[numAttributes - 1].setPrice(price);
+		}
+			return attributesVector;
+	}
+	catch (SAException& x)
+	{
+		try
+		{
+			con.Rollback();
+		}
+		catch (SAException&)
+		{
+
+		}
+
+		cout << (const char*)x.ErrText() << endl;
+
+	}
+
 	
-
 }

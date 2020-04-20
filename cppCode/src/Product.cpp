@@ -1,4 +1,4 @@
-#include "../include/Product.h"
+#include "Product.h"
 
 vector<Product> Product::cart;
 double Product::total = 0.00;
@@ -8,76 +8,76 @@ Product::Product()
 }
 
 Product::Product(InventoryItems iI, InventoryAttributes iA)
-:thisItem(iI),thisAtt(iA)
+	:thisItem(iI), thisAtt(iA)
 {
 
 }
 
 Product::~Product()
 {
-    //dtor
+	//dtor
 }
 
 void Product::printCard()
 {
-    cout << "name: " << (*this).thisItem.getName() << endl;
-    //cout << "description: " << (*this).thisItem.getDescription() << endl;
-    cout << "price: $" << (*this).thisAtt.getPrice() << endl;
-    //cout << "in stock: " << (*this).thisAtt.getQuantity() << endl;
+	cout << "name: " << (*this).thisItem.getName() << endl;
+	//cout << "description: " << (*this).thisItem.getDescription() << endl;
+	cout << "price: $" << (*this).thisAtt.getPrice() << endl;
+	//cout << "in stock: " << (*this).thisAtt.getQuantity() << endl;
 }
 
 void Product::addToCartBtn()
 {
-    for(int i = 0; i < selected; i++)
-    cart.push_back(*this);
+	for (int i = 0; i < selected; i++)
+		cart.push_back(*this);
 
-    //this may need to be moved into the for loop, depending on design
-    //keeping it outside is more efficient
-    (*this).thisAtt.setQuantity((*this).thisAtt.getQuantity()-selected);
+	//this may need to be moved into the for loop, depending on design
+	//keeping it outside is more efficient
+	(*this).thisAtt.setQuantity((*this).thisAtt.getQuantity() - selected);
 
 }
 
 void Product::remFromCart()
 {
-    //this method needs more work. The intention is to delete a specific object, but the line below will always get rid of cart[1]
-    cart.erase(cart.begin() + 1);
+	//this method needs more work. The intention is to delete a specific object, but the line below will always get rid of cart[1]
+	cart.erase(cart.begin() + 1);
 }
 
 void Product::clearCart()
 {
-    cart.clear();
+	cart.clear();
 }
 
 void Product::printCart()
 {
-    for(unsigned int i = 0; i < cart.size(); i++) {
-        cart[i].printCard();
-    }
-    cout << endl;
+	for (unsigned int i = 0; i < cart.size(); i++) {
+		cart[i].printCard();
+	}
+	cout << endl;
 }
 
 double Product::getTotal()
 {
-    for(unsigned int i = 0; i < cart.size(); i++){
+	for (unsigned int i = 0; i < cart.size(); i++) {
 
-        total += cart[i].thisAtt.getPrice();
-    }
-    return total;
+		total += cart[i].thisAtt.getPrice();
+	}
+	return total;
 }
 
 int Product::getSelected()
 {
-    return selected;
+	return selected;
 }
 
 void Product::incBtn()
 {
-    if(selected <= (*this).thisAtt.getQuantity()) selected++;
+	if (selected <= (*this).thisAtt.getQuantity()) selected++;
 }
 
 void Product::decBtn()
 {
-    if(selected > 0) selected--;
+	if (selected > 0) selected--;
 }
 
 
@@ -90,6 +90,6 @@ void finalPurchaseBtn()
 
 
 
-    //will change values inside the database with local values
-    //will initialize statistical data
+	//will change values inside the database with local values
+	//will initialize statistical data
 }

@@ -14,63 +14,71 @@ using namespace std;
 class DBAPI
 {
 
-    private:
-        string db_name;
-        string user;
-        string pass;
-        SAConnection con;
+private:
+	string db_name;
+	string user;
+	string pass;
+	SAConnection con;
 
-    public:
-
-        //------------------------------------------------------------
-        //CLASS FUNCTIONS
-        //------------------------------------------------------------
-        DBAPI(string db_name, string user, string pass);
-        void connectDB();
+public:
+	
 
 
-        //------------------------------------------------------------
-        //CUSTOMER FUNCTIONS
-		//------------------------------------------------------------
-        void createCustomer();
-        void deleteCustomer();
-        void editCustomer(int id);
-        void editCustomer(string first, string last);
+	//------------------------------------------------------------
+	//CLASS FUNCTIONS
+	//------------------------------------------------------------
+	DBAPI(string db_name, string user, string pass);
+	void connectDB();
 
-        void getCustomers();
 
-		
-        //------------------------------------------------------------
-        //INVENTORY ITEM FUNCTIONS
-		//------------------------------------------------------------
+	//------------------------------------------------------------
+	//CUSTOMER FUNCTIONS
+	//------------------------------------------------------------
+	void createCustomer();
+	void deleteCustomer();
+	void editCustomer(int id);
+	void editCustomer(string first, string last);
 
-        void createItem();
-        void deleteItem();
+	void getCustomers();
 
-        vector<InventoryItems> getActiveItems(); //returns a vector containing all active item objects
-		vector<int> getActiveIds();
 
-        int getImageID(int id);
+	//------------------------------------------------------------
+	//INVENTORY ITEM FUNCTIONS
+	//------------------------------------------------------------
 
-        boolean isActive(int id);
+	void createItem();
+	void deleteItem();
 
-		//------------------------------------------------------------
-		//INVENTORY ATTRIBUTE FUNCTIONS
-		//------------------------------------------------------------
+	vector<InventoryItems> getActiveItems(); //returns a vector containing all active item objects
+	vector<int> getActiveIds();
 
-        void createAttribute();
-        void deleteAttribute();
+	int getImageID(int id);
 
-        vector<InventoryAttributes> getAttributes(int id);
+	boolean isActive(int id);
 
-        
+	//------------------------------------------------------------
+	//INVENTORY ATTRIBUTE FUNCTIONS
+	//------------------------------------------------------------
 
-		//------------------------------------------------------------
-		//PURCHASE FUNCTIONS
-		//------------------------------------------------------------
+	//Abraham added functions
+	vector<InventoryAttributes> getAllDBAtts();
+	//---------------
+	void createAttribute();
+	void deleteAttribute();
 
-        void createPurchase();
-        void executePurchase();
+	//this will be an attribute for 
+	//makeProducts(vector<InventoryItems>, vector<InventoryAttributes>) class
+	//in Product.h
+	//vector<InventoryAttributes> getAttributes(int id);
+
+
+
+	//------------------------------------------------------------
+	//PURCHASE FUNCTIONS
+	//------------------------------------------------------------
+
+	void createPurchase();
+	void executePurchase();
 
 };
 
@@ -81,3 +89,4 @@ class DBAPI
 
 
 #endif
+

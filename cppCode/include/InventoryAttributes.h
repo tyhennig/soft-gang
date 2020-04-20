@@ -6,34 +6,46 @@ using namespace std;
 
 class InventoryAttributes
 {
-    public:
-        InventoryAttributes();
-        InventoryAttributes(int id, string att, int q, double p);
-        ~InventoryAttributes();
-        int itemID;
-        string attribute;
-        int quantityAv;
-        double price;
+public:
+	InventoryAttributes();
+	InventoryAttributes(int id, string att, int q, double p);
+	~InventoryAttributes();
+	int itemID;
+	string attribute;
+	int quantityAv;
+	double price;
+
+
+	//get from DB, set in DB
+	//int getAllDBAtts();
+	//int getDBID();
+	//string getDBAttribute();
+	//int getDBQuantity();
+	//double getDBPrice();
+	//void setDBID(int);
+	//void setDBAttribute(string);
+	//void setDBQuantity(int);
+	//void setDBPrice(double);
 
 
 
 
-        //getters and setters, to be modified.
-        //will pill/push from database and have built in logic
-        int getID();
-        string getAttribute();
-        int getQuantity();
-        double getPrice();
-        void setID(int);
-        void setAttribute(string);
-        void setQuantity(int);
-        void setPrice(double);
+	//getters and setters, for local stuff
+	int getID();
+	string getAttribute();
+	int getQuantity();
+	double getPrice();
+	void setID(int);
+	void setAttribute(string);
+	void setQuantity(int);
+	void setPrice(double);
 
 
 
-    protected:
+protected:
 
-    private:
+private:
 };
 
 #endif // INVENTORYATTRIBUTES_H
+
