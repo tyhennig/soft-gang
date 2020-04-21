@@ -5,8 +5,9 @@ InventoryAttributes::InventoryAttributes()
 	//ctor
 }
 
-InventoryAttributes::InventoryAttributes(int id, string att, int q, double p)
+InventoryAttributes::InventoryAttributes(int attid, int id, string att, int q, double p)
 {
+	attID = attid;
 	itemID = id;
 	attribute = att;
 	quantityAv = q;
@@ -17,6 +18,12 @@ InventoryAttributes::~InventoryAttributes()
 {
 	//dtor
 }
+
+int InventoryAttributes::getAttID()
+{
+	return attID;
+}
+
 
 int InventoryAttributes::getID()
 {
@@ -36,6 +43,11 @@ int InventoryAttributes::getQuantity()
 double InventoryAttributes::getPrice()
 {
 	return price;
+}
+
+void InventoryAttributes::setAttID(int i)
+{
+	attID = i;
 }
 
 void InventoryAttributes::setID(int i)

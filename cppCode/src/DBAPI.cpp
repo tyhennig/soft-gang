@@ -62,19 +62,19 @@ vector<InventoryItems> DBAPI::getActiveItems()
 			itemsVector.resize(numItems);
 
 
-			string id;
+			int id;
 			string name;
 			string category;
 			string description;
 			string imageID;
 
-			id = (const char*)cmd.Field(1).asString();
+			id = (sa_int64_t)cmd.Field(1).asNumeric();
 			name = (const char*)cmd.Field(2).asString();
 			category = (const char*)cmd.Field(3).asString();
 			description = (const char*)cmd.Field(4).asString();
 			imageID = (const char*)cmd.Field(5).asString();
 
-
+			itemsVector[numItems - 1].setID(id);
 			itemsVector[numItems - 1].setName(name);
 			itemsVector[numItems - 1].setCategory(category);
 			itemsVector[numItems - 1].setDescription(description);
@@ -258,7 +258,7 @@ vector<InventoryAttributes> DBAPI::getAllDBAtts()
 			quantity = (sa_int64_t)cmd.Field(4).asNumeric();
 			price = (double)cmd.Field(5).asNumeric();
 
-			//attributesVector[numAttributes - 1].setID(attID);
+			attributesVector[numAttributes - 1].setAttID(attID);
 			attributesVector[numAttributes - 1].setID(itemID);
 			attributesVector[numAttributes - 1].setAttribute(attribute);
 			attributesVector[numAttributes - 1].setQuantity(quantity);

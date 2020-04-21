@@ -8,8 +8,9 @@ class InventoryAttributes
 {
 public:
 	InventoryAttributes();
-	InventoryAttributes(int id, string att, int q, double p);
+	InventoryAttributes(int attid, int id, string att, int q, double p);
 	~InventoryAttributes();
+	int attID;
 	int itemID;
 	string attribute;
 	int quantityAv;
@@ -31,10 +32,12 @@ public:
 
 
 	//getters and setters, for local stuff
+	int getAttID();
 	int getID();
 	string getAttribute();
 	int getQuantity();
 	double getPrice();
+	void setAttID(int);
 	void setID(int);
 	void setAttribute(string);
 	void setQuantity(int);

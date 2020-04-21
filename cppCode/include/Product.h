@@ -20,6 +20,11 @@ public:
 	InventoryItems thisItem;
 	InventoryAttributes thisAtt;
 	static vector<Product> cart;
+
+
+	static vector<InventoryItems> itemsVector;
+	static vector<InventoryAttributes> attsVector;
+	static vector<Product> DBProducts;
 	static double total;
 	int selected = 0;
 
@@ -37,7 +42,8 @@ public:
 	void decBtn();
 	void addToCartBtn();
 
-	//void makeProducts(vector<InventoryItems>, vector<InventoryAttributes>);
+	static vector<Product> makeProducts(vector<InventoryItems> & II, vector<InventoryAttributes> & IA);
+	static void printDBProducts();
 	//TODO: Implement methods in object oriented fashion
 	//      Find out whether you even have to. Learn about sql c++ first maybe
 	//addProduct();

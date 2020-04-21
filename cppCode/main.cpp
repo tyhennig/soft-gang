@@ -7,7 +7,7 @@
 #include "Product.h"
 #include "Customer.h"
 
-#include "include/DBAPI.h"
+#include "DBAPI.h"
 
 
 string db_name;
@@ -19,6 +19,9 @@ int input;
 
 vector<InventoryItems> itemVec;
 vector<InventoryAttributes> attVec;
+vector<Product> DBProducts;
+
+
 
 using namespace std;
 
@@ -32,7 +35,7 @@ int main()
 
 	DBAPI db(db_name, user, pass);
 	db.connectDB();
-
+	
 	while (run)
 	{
 		cout << "1. List Customers" << endl;
@@ -45,20 +48,31 @@ int main()
 
 		if (input == 1)
 		{
-			//itemVec = db.getActiveItems();
+			//fetches InvItems and InvAtts
+			itemVec = db.getActiveItems();
 			attVec = db.getAllDBAtts();
 
-			//cout << "The first created item name is: ";
-			cout << "Here: " << endl;
-			for (int i = 0;i < 2;i++)
+			//cout << itemVec[2].getName() << endl;
+			//cout << attVec[8].getID() << endl;
+
+			//creates products
+			Product::makeProducts(itemVec, attVec);
+
+			Product::printDBProducts();
+			
+				
+				
+			/*for (int i = 0;i < 3;i++)
 			{
+				
+
 				//cout << itemVec[i].getName() << endl;
 				cout << attVec[i].getID() << endl;
 				cout << attVec[i].getAttribute() << endl;
 				cout << attVec[i].getQuantity() << endl;
 				cout << attVec[i].getPrice() << endl;
 
-			}
+			}*/
 			
 
 		}

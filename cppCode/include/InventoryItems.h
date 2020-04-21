@@ -6,29 +6,34 @@ using namespace std;
 
 class InventoryItems
 {
-    public:
-        InventoryItems();
-        InventoryItems(string n, string c, string d, bool a);
-        ~InventoryItems();
-        string name;
-        string category;
-        string description;
-        bool active;
+public:
+	InventoryItems();
+	InventoryItems(int id, string n, string c, string d, bool a);
+	~InventoryItems();
+	int ID;
+	string name;
+	string category;
+	string description;
+	bool active;
 
-        //getters and setters, to be modified.
-        //will pill/push from database and have built in logic
-        string getName();
-        string getCategory();
-        string getDescription();
-        bool getActive();
-        void setName(string);
-        void setCategory(string);
-        void setDescription(string);
-        void setActive(bool);
+	//getters and setters, to be modified.
+	//will pill/push from database and have built in logic
+	int getID();
+	string getName();
+	string getCategory();
+	string getDescription();
+	bool getActive();
+	void setID(int);
+	void setName(string);
+	void setCategory(string);
+	void setDescription(string);
+	void setActive(bool);
 
-    protected:
+protected:
 
-    private:
+private:
 };
 
 #endif // INVENTORYITEMS_H
+
+

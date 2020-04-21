@@ -1,61 +1,73 @@
-#include "../include/InventoryItems.h"
+#include "InventoryItems.h"
 
 InventoryItems::InventoryItems()
 {
-    //ctor
+	//ctor
 }
 
-InventoryItems::InventoryItems(string n, string c, string d, bool a)
+InventoryItems::InventoryItems(int id, string n, string c, string d, bool a)
 {
-    name = n;
-    category = c;
-    description = d;
-    active = a;
+	ID = id;
+	name = n;
+	category = c;
+	description = d;
+	active = a;
 }
 
 InventoryItems::~InventoryItems()
 {
-    //dtor
+	//dtor
+}
+
+int InventoryItems::getID()
+{
+	return ID;
 }
 
 string InventoryItems::getName()
 {
-    return name;
+	return name;
 }
 
 string InventoryItems::getCategory()
 {
-    return category;
+	return category;
 }
 
 string InventoryItems::getDescription()
 {
-    return description;
+	return description;
 }
 
 bool InventoryItems::getActive()
 {
-    return active;
+	return active;
+}
+
+void InventoryItems::setID(int i)
+{
+	ID = i;
 }
 
 void InventoryItems::setName(string n)
 {
-    name = n;
+	name = n;
 }
 
 void InventoryItems::setCategory(string c)
 {
-    category = c;
+	category = c;
 }
 
 void InventoryItems::setDescription(string d)
 {
-    description = d;
+	description = d;
 }
 
 void InventoryItems::setActive(bool a)
 {
-    active = a;
+	active = a;
 }
+
 
 
