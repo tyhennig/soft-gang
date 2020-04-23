@@ -1,6 +1,18 @@
 #include "DBAPI.h"
 #include <iostream>
 
+/*
+::::::::::::TODO IMPORTANT:::::::::::
+
+Edit items from cart
+
+
+*/
+
+
+
+
+
 
 using namespace std;
 
@@ -118,8 +130,51 @@ vector<int> DBAPI::getActiveIds()
 
 //-----------------------------------------------
 
-void DBAPI::createCustomer()
+void DBAPI::createCustomer(Customer customer)
 {
+
+	string first = customer.first;
+	string last = customer.last;
+	string phone = customer.phone;
+	string email = customer.email;
+
+	try
+	{
+		SACommand cmd(
+			&con,
+			"INSERT INTO customers VALUES (:1, :2, :3, :4)"
+		);
+
+		cmd.Param(1).setAsString() = first.c_str();
+		cmd.Param(2).setAsString() = last.c_str();
+		cmd.Param(3).setAsString() = phone.c_str();
+		cmd.Param(4).setAsString() = email.c_str();
+
+
+		cmd.Execute();
+
+
+	}
+	catch (SAException& x)
+	{
+		try
+		{
+			con.Rollback();
+		}
+		catch (SAException&)
+		{
+
+		}
+
+		cout << (const char*)x.ErrText() << endl;
+
+	}
+
+}
+
+void DBAPI::deleteCustomer(Customer customer)
+{
+
 
 	try
 	{
@@ -150,47 +205,14 @@ void DBAPI::createCustomer()
 
 }
 
-void DBAPI::deleteCustomer()
-{
-
-
-	try
-	{
-		SACommand cmd(
-			&con,
-			" "
-		);
-
-		cmd.Execute();
-
-		cout << endl << "Rows Affected: " << cmd.RowsAffected() << endl;
-
-	}
-	catch (SAException& x)
-	{
-		try
-		{
-			con.Rollback();
-		}
-		catch (SAException&)
-		{
-
-		}
-
-		cout << (const char*)x.ErrText() << endl;
-
-	}
-
-}
-
-void DBAPI::getCustomers()
+vector<Customer> DBAPI::getCustomers()
 {
 	try
 	{
 
 		SACommand cmd(
 			&con,
-			"SELECT first, last FROM customers;"
+			"SELECT first, last, phone, email FROM customers;"
 		);
 
 		cmd.Execute();
@@ -203,9 +225,12 @@ void DBAPI::getCustomers()
 			{
 				cout << (const char*)cmd.Field("first").asString() << " " <<
 					(const char*)cmd.Field("last").asString() << endl;
+
 			}
 
 		}
+		vector<Customer> cvec;
+		return cvec;
 
 	}
 	catch (SAException& x)
@@ -282,4 +307,12 @@ vector<InventoryAttributes> DBAPI::getAllDBAtts()
 	}
 
 	
+}
+
+
+
+void DBAPI::executePurchase()
+{
+
+
 }

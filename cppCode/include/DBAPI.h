@@ -3,6 +3,7 @@
 
 #include "InventoryItems.h"
 #include "InventoryAttributes.h"
+#include "Customer.h"
 
 #include <vector>
 #include <iostream>
@@ -34,12 +35,11 @@ public:
 	//------------------------------------------------------------
 	//CUSTOMER FUNCTIONS
 	//------------------------------------------------------------
-	void createCustomer();
-	void deleteCustomer();
-	void editCustomer(int id);
-	void editCustomer(string first, string last);
+	void createCustomer(Customer customer);
+	void deleteCustomer(Customer customer);
+	void editCustomer(Customer customer);
 
-	void getCustomers();
+	vector<Customer> getCustomers();
 
 
 	//------------------------------------------------------------
