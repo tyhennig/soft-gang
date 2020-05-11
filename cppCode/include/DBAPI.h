@@ -4,6 +4,7 @@
 #include "InventoryItems.h"
 #include "InventoryAttributes.h"
 #include "Customer.h"
+#include "Product.h"
 
 #include <vector>
 #include <iostream>
@@ -20,6 +21,7 @@ private:
 	string user;
 	string pass;
 	SAConnection con;
+
 
 public:
 	
@@ -76,6 +78,7 @@ public:
 	//------------------------------------------------------------
 	//PURCHASE FUNCTIONS
 	//------------------------------------------------------------
+	void updateQuantity(vector<Product> prod);
 
 	void createPurchase();
 	void executePurchase();

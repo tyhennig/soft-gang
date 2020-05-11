@@ -175,13 +175,25 @@ void DBAPI::createCustomer(Customer customer)
 void DBAPI::deleteCustomer(Customer customer)
 {
 
+	string first;
+	string last;
+
 
 	try
 	{
 		SACommand cmd(
 			&con,
-			" "
+			"DELETE FROM customers WHERE first=:1 AND last=:2;"
 		);
+
+		cout << "Customer First Name: ";
+		cin >> first;
+		cout << endl << "Customer Last Name: ";
+		cin >> last;
+
+		cmd.Param(1).setAsString() = first.c_str();
+		cmd.Param(2).setAsString() = last.c_str();
+		
 
 		cmd.Execute();
 
@@ -310,6 +322,49 @@ vector<InventoryAttributes> DBAPI::getAllDBAtts()
 }
 
 
+
+void DBAPI::updateQuantity(vector<Product> prodVector)
+{
+
+	int numItems = prodVector.size();
+	for (int i = 0; i < numItems; i++)
+	{
+
+	try
+	{
+		SACommand cmd(
+			&con,
+			"UPDATE inventory_attributes SET quantity = quantity - 1 WHERE attributeID = :1;"
+		);
+
+		cmd.Param(1).setAsInt64() = prodVector[i].thisAtt.getAttID();
+
+		cmd.Execute();
+
+
+	}
+	catch (SAException& x)
+	{
+		try
+		{
+			con.Rollback();
+		}
+		catch (SAException&)
+		{
+
+		}
+
+		cout << (const char*)x.ErrText() << endl;
+
+	}
+
+
+	}
+
+
+
+
+}
 
 void DBAPI::executePurchase()
 {

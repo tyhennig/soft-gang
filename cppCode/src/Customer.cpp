@@ -35,7 +35,7 @@ string Customer::getEmail()
 
 void Customer::setFirst(string f)
 {
-    phone = f;
+    first = f;
 }
 
 void Customer::setLast(string l)
